@@ -18,8 +18,8 @@ storeDisplacement = zeros(numel(R) - 1, numel(C) - 1);
 maxDisplacement = 7;
 dispVector = -maxDisplacement:maxDisplacement;
 
-for iRow = 35
-    for iCol = 35
+for iRow = 1
+    for iCol = 1
 
         currTemplate = Imoved(R(iRow):(R(iRow + 1) - 1), C(iCol):(C(iCol + 1) - 1));
 
@@ -34,23 +34,34 @@ for iRow = 35
 
                 if refRowStart < 1
                     
+                    %Missing portion is 
+                    diffRow = abs(refRowStart) + 1;
+                    
                     %Crop both reference and templates
                     refRowStart = 1;
-                    refRowEnd = refRowEnd - 1;
-
-                    
-
+                    refRowEnd = refRowEnd;
 
                 end
 
-                if colStart 
+                refColStart = C(iCol) + dispVector(dCol);
+                refColEnd = C(iCol + 1) + dispVector(dCol) - 1;
+
+                if refColStart < 1
+
+                    diffCol = abs(refColStart) + 1;
+
+                    refColStart = 1;
+                    refColEnd = refColEnd;
+
+                end
 
 
                 %Crop the reference image to the right section
                 currRefSection = Iref(...
-                    ():(R(iRow + 1) - 1 + dispVector(dRow)), ...
-                    (C(iCol) + dispVector(dCol)):(C(iCol + 1) - 1 + dispVector(dCol)));
+                    refRowStart:refRowEnd, ...
+                    refColStart:refColEnd);
 
+                keyboard
 
                 %Compute the MAD score
                 errScore(dRow, dCol) = immse(currRefSection, currTemplate);
