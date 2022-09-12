@@ -16,6 +16,10 @@ classdef MotionFlowProcessor
 
                 inputFiles = varargin{1};
 
+                if ~iscell(inputFiles)
+                    inputFiles = {inputFiles};
+                end
+
             else
 
                 [files, fpath] = uigetfile({'*.nd2', 'Nikon ND2 File (*.nd2)'; ...
@@ -56,6 +60,10 @@ classdef MotionFlowProcessor
 
             end
 
+            if ~exist(outputDir, 'dir')
+                mkdir(outputDir)
+            end
+
             %Generate a structure to store options
             opts.maxDisplacement = obj.maxDisplacement;
             opts.blockSize = obj.blockSize;
@@ -68,8 +76,6 @@ classdef MotionFlowProcessor
             end
 
         end
-
-
 
     end
 
