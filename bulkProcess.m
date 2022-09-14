@@ -4,7 +4,7 @@ folders = {'D:\Projects\Research\2022-optical-flow-analyzer\data\const', ...
     'D:\Projects\Research\2022-optical-flow-analyzer\data\mature', ...
     'D:\Projects\Research\2022-optical-flow-analyzer\data\wnt'};
 
-baseOutputDir = 'D:\Projects\Research\2022-optical-flow-analyzer\processed';
+baseOutputDir = 'D:\Projects\Research\2022-optical-flow-analyzer\processed_increasedDisp';
 
 for iFolder = 1:numel(folders)
 
@@ -18,6 +18,7 @@ for iFolder = 1:numel(folders)
     end
 
     MFP = MotionFlowProcessor;
+    MFP.maxDisplacement = 15;
     process(MFP, fileList, baseOutputDir);
 
 end
