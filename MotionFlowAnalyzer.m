@@ -89,6 +89,26 @@ classdef MotionFlowAnalyzer
 
         end
 
+        function computeMotion(X, Y, U, V, Cx, Cy, ROI)
+            %COMPUTEMOTION  Compute the motion towards a point
+            %
+            %  COMPUTEMOTION(U, V, ROI)
+
+            %ROI = [xMin, yMin, width, height]
+
+            %Determine if 
+
+
+
+            %Generate the unit vector from each point to the CoB
+            vecCoB = [XX(idx(ii)) - Cx, YY(idx(ii)) - Cy];
+            uvec = uvec ./ (sqrt(uvec(1)^2 + uvec(2)^2));
+            
+
+
+
+        end
+
 
     end
 
