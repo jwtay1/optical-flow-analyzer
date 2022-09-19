@@ -78,11 +78,14 @@ classdef MotionFlowAnalyzer
             diffContraction = maxContraction + minContraction;
 
             %Find the position of the smallest difference
+            [iCoB, jCoB] = find(diffContraction == min(diffContraction, [], 'all'));
+
+            xCoB = jCoB + xmin;
+            yCoB = iCoB + ymin;
+
+            %Compute motion towards and away from the center of beating
             
-
-
-
-
+            
 
         end
 
