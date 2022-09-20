@@ -31,7 +31,7 @@ classdef MotionFlowAnalyzer
 
     methods (Static)
 
-        function analyzeFile(file, centerOfBeatingDistance)
+        function [xCoB, yCoB] = findCenterofBeating(file, centerOfBeatingDistance)
 
             %Load file
             load(file);
@@ -55,7 +55,6 @@ classdef MotionFlowAnalyzer
             Cy = ymin:(ymin + height);
 
             [Cx, Cy] = meshgrid(Cx, Cy);
-
 
             meanMotion = zeros([size(Cx), reader.sizeT]);
             for iT = 1:reader.sizeT
@@ -83,11 +82,9 @@ classdef MotionFlowAnalyzer
             xCoB = jCoB + xmin;
             yCoB = iCoB + ymin;
 
-            %Compute motion towards and away from the center of beating
-            
-            
-
         end
+        
+        
 
 %         function [maxPixelVelocity, heartbeatRate, roiCenter] = analyzeFile(file, centerOfBeatingDistance)
 % 
