@@ -89,23 +89,38 @@ classdef MotionFlowAnalyzer
 
         end
 
-        function computeMotion(X, Y, U, V, Cx, Cy, ROI)
+        function meanMotion = computeMotion(X, Y, U, V, Cx, Cy, ROI)
             %COMPUTEMOTION  Compute the motion towards a point
             %
-            %  COMPUTEMOTION(U, V, ROI)
+            %  M = COMPUTEMOTION(X, Y, U, V, Cx, Cy, ROI)
 
             %ROI = [xMin, yMin, width, height]
-
-            %Determine if 
-
-
-
-            %Generate the unit vector from each point to the CoB
-            vecCoB = [XX(idx(ii)) - Cx, YY(idx(ii)) - Cy];
-            uvec = uvec ./ (sqrt(uvec(1)^2 + uvec(2)^2));
+            idx = find(inROI(ROI, X, Y));
             
+            %Declare matrix to hold motion amplitude
+            currMotionAmpl = zeros(1, numel(idx)); 
+            
+            for ii = 1:numel(idx)
+            
+                %Generate unit vectors pointing towards the center of beating
+                unitVecX = X(idx(ii)) - Cx;
+                unitVecY = Y(idx(ii)) - Cy;
 
+                unitVecMag = sqrt(unitVecX.^2 + unitVecY.^2);
 
+                %Normalize the unit vectors
+                unitVec = [unitVecX, unitVecY] ./ unitVecMag;
+                            
+                %Generate the displacement vector
+                dispVec = [X(idx(ii)) + U(idx(ii)), Y(idx(ii)) + V(idx(ii))];
+                
+                %Compute the dot product
+                currMotionAmpl(ii) = dot(dispVec, unitVec);
+            end
+            
+            %Compute the mean motion towards or away from the center of
+            %beating
+            meanMotion = mean(currMotionAmpl);
 
         end
 
