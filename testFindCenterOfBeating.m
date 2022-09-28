@@ -1,7 +1,7 @@
 clearvars
 clc
 
-load('D:\Projects\Research\2022-optical-flow-analyzer\processed_increasedDisp\const_12047_1_001.mat');
+load('D:\Projects\Research\2022-optical-flow-analyzer\processed_increasedDisp\const_12345_2_002.mat');
 
 reader = BioformatsImage(inputFile);
 
@@ -82,7 +82,7 @@ end
 xCoB = jCoB + xmin;
 yCoB = iCoB + ymin;
 
-figure;
+figure(1);
 imshow(I, [])
 hold on
 plot(xCoB, yCoB, 'ro')
@@ -114,7 +114,19 @@ for iT = 1:reader.sizeT
 
 end
 
+figure(2)
 plot(storeDisplacementTime)
 
+%%
+%Find the zero point
+zeroDisp = mode(round(storeDisplacementTime, 3, 'significant'));
+normDisp = storeDisplacementTime - zeroDisp;
+
+%Compute inward vs outward motion towards the point
+maxContraction = max(normDisp);
+minContraction = min(normDisp);
+
+disp([xCoB, yCoB])
+disp(max(abs([maxContraction, minContraction])))
 
 
