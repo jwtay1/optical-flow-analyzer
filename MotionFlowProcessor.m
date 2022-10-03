@@ -184,6 +184,7 @@ classdef MotionFlowProcessor
                 %Write to video
                 writeVideo(vid, getframe(gcf))
 
+                %Update the reference image to the latest frame
                 Iref = Imoved;
 
             end
